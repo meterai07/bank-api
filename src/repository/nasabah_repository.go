@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"bank/models"
+	"bank/src/models"
 	"errors"
 
 	"gorm.io/gorm"

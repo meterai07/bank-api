@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"bank/database"
-	"bank/handlers"
-	"bank/repository"
+	"bank/src/database"
+	"bank/src/handlers"
+	"bank/src/repository"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
