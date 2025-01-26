@@ -29,18 +29,15 @@ func (h *AuthHandler) Login(c *fiber.Ctx) error {
 		return utils.Error(c, 400, "Format request tidak valid")
 	}
 
-	// Cari nasabah by NIK
 	nasabah, err := h.repo.FindByNIK(req.NIK)
 	if err != nil {
 		return utils.Error(c, 401, "NIK atau password salah")
 	}
 
-	// Verifikasi password
 	if err := bcrypt.CompareHashAndPassword([]byte(nasabah.Password), []byte(req.Password)); err != nil {
 		return utils.Error(c, 401, "NIK atau password salah")
 	}
 
-	// Generate JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"no_rekening": nasabah.NoRekening,
 		"exp":         time.Now().Add(time.Hour * 24).Unix(),
