@@ -10,29 +10,26 @@ import (
 	"bank/src/repository"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal().Err(err).Msg("Failed to load .env file")
-	}
+	// for local development
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal().Err(err).Msg("Failed to load .env file")
+	// }
 
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
-	dbHost := os.Getenv("DB_HOST")
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-	dbPort := os.Getenv("DB_PORT")
-
 	apiPort := os.Getenv("PORT")
+	if apiPort == "" {
+		apiPort = "8080"
+	}
 
-	db, err := database.ConnectDB(dbHost, dbUser, dbPass, dbName, dbPort)
+	db, err := database.ConnectDB()
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to connect to database")
 	}
