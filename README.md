@@ -1,4 +1,3 @@
-```markdown
 # Banking Service API
 
 A RESTful banking service API built with Go, Fiber, GORM, and PostgreSQL. Features account management, transactions, and JWT authentication.
@@ -170,14 +169,10 @@ curl -X POST -H "Content-Type: application/json" \
   http://localhost:8080/api/v1/login
 ```
 
-## License
-
-MIT License - See [LICENSE](LICENSE) for details.
-
 ---
 
 **Contributing**  
 Feel free to submit issues or PRs!  
 **Contact**: tengkumrafir@gmail.com
-**API Demo**: [https://documenter.getpostman.com/view/20875079/2sAYQgfnq3](https://documenter.getpostman.com/view/20875079/2sAYQgfnq3)
+**API Demo**: [https://documenter.getpostman.com/view/20875079/2sAYQgfnq3]
 ```
