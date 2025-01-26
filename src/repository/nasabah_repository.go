@@ -85,3 +85,11 @@ func (r *NasabahRepository) GetSaldo(noRekening string) (int64, error) {
 	}
 	return nasabah.Saldo, nil
 }
+
+func (r *NasabahRepository) FindByNIK(nik string) (*models.Nasabah, error) {
+	var nasabah models.Nasabah
+	if err := r.db.Where("nik = ?", nik).First(&nasabah).Error; err != nil {
+		return nil, ErrAccountNotFound
+	}
+	return &nasabah, nil
+}

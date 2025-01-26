@@ -19,9 +19,10 @@ func NewNasabahHandler(repo *repository.NasabahRepository) *NasabahHandler {
 
 func (h *NasabahHandler) Daftar(c *fiber.Ctx) error {
 	var req struct {
-		Nama string `json:"nama"`
-		NIK  string `json:"nik"`
-		NoHP string `json:"no_hp"`
+		Nama     string `json:"nama"`
+		NIK      string `json:"nik"`
+		NoHP     string `json:"no_hp"`
+		Password string `json:"password"`
 	}
 
 	if err := c.BodyParser(&req); err != nil {
@@ -30,9 +31,10 @@ func (h *NasabahHandler) Daftar(c *fiber.Ctx) error {
 	}
 
 	nasabah := models.Nasabah{
-		Nama: req.Nama,
-		NIK:  req.NIK,
-		NoHP: req.NoHP,
+		Nama:     req.Nama,
+		NIK:      req.NIK,
+		NoHP:     req.NoHP,
+		Password: req.Password,
 	}
 
 	if err := h.repo.Create(&nasabah); err != nil {

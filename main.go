@@ -7,7 +7,9 @@ import (
 
 	"bank/src/database"
 	"bank/src/handlers"
+	"bank/src/middleware"
 	"bank/src/repository"
+	"bank/src/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
@@ -39,13 +41,12 @@ func main() {
 		log.Fatal().Err(err).Msg("Failed to migrate database")
 	}
 
-	app := fiber.New()
-	handler := handlers.NewNasabahHandler(nasabahRepo)
+	nasabahHandler := handlers.NewNasabahHandler(nasabahRepo)
+	authHandler := handlers.NewAuthHandler(nasabahRepo)
 
-	app.Post("/daftar", handler.Daftar)
-	app.Post("/tabung", handler.Tabung)
-	app.Post("/tarik", handler.Tarik)
-	app.Get("/saldo/:no_rekening", handler.Saldo)
+	app := fiber.New()
+	middleware.InitJWTSecret(os.Getenv("JWT_SECRET"))
+	routes.SetupRoutes(app, nasabahHandler, authHandler)
 
 	port := flag.String("port", fmt.Sprintf(":%s", apiPort), "Server port")
 	flag.Parse()
